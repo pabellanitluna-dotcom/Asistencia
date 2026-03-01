@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Control de Asistencia</title>
+<link rel="manifest" href="manifest.json">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Asistencia">
+<meta name="theme-color" content="#00e5a0">
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
+<link rel="icon" type="image/png" href="data:image/png;base64,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">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&family=Nunito:wght@300;400;600;700&display=swap');
+
+  :root {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --surface2: #1c2333;
+    --accent: #00e5a0;
+    --accent2: #0099ff;
+    --danger: #ff4d6d;
+    --text: #e6edf3;
+    --muted: #7d8590;
+    --border: #30363d;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Fondo animado */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse 60% 40% at 20% 10%, rgba(0,229,160,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 50% at 80% 90%, rgba(0,153,255,0.07) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; padding: 20px; }
+
+  /* HEADER */
+  .header {
+    text-align: center;
+    padding: 30px 0 20px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 30px;
+  }
+  .header h1 {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .header p { color: var(--muted); font-size: 0.9rem; margin-top: 4px; }
+
+  .clock {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 3px;
+    margin-top: 10px;
+  }
+  .date-display { color: var(--muted); font-size: 0.95rem; margin-top: 4px; }
+
+  /* GRID LAYOUT */
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+  @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
+
+  /* TARJETAS */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+  }
+  .card-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+
+  /* BÚSQUEDA Y SELECCIÓN */
+  .search-box {
+    width: 100%;
+    padding: 12px 16px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    font-family: 'Nunito', sans-serif;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+    margin-bottom: 12px;
+  }
+  .search-box:focus { border-color: var(--accent); }
+
+  .worker-select {
+    width: 100%;
+    padding: 12px 16px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    font-family: 'Nunito', sans-serif;
+    font-size: 1rem;
+    outline: none;
+    cursor: pointer;
+    height: 180px;
+  }
+  .worker-select option { padding: 8px; }
+  .worker-select option:checked { background: rgba(0,229,160,0.2); }
+
+  /* HUELLA */
+  .fingerprint-zone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .fp-circle {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background: var(--surface2);
+    border: 3px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .fp-circle::before {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    border-radius: 50%;
+    background: conic-gradient(var(--accent), var(--accent2), var(--accent));
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: -1;
+  }
+  .fp-circle.scanning::before { opacity: 1; animation: spin 1.5s linear infinite; }
+  .fp-circle.success { border-color: var(--accent); box-shadow: 0 0 30px rgba(0,229,160,0.4); }
+  .fp-circle.error { border-color: var(--danger); box-shadow: 0 0 30px rgba(255,77,109,0.4); }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .fp-icon {
+    font-size: 5rem;
+    transition: all 0.3s;
+    filter: grayscale(1) opacity(0.4);
+    user-select: none;
+  }
+  .fp-circle.scanning .fp-icon { filter: grayscale(0) opacity(1); animation: pulse 0.8s ease-in-out infinite alternate; }
+  .fp-circle.success .fp-icon { filter: grayscale(0) opacity(1); }
+  .fp-circle.error .fp-icon { filter: grayscale(0) opacity(1); }
+  @keyframes pulse { from { transform: scale(0.95); } to { transform: scale(1.05); } }
+
+  .fp-status {
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--muted);
+    min-height: 40px;
+  }
+  .fp-status.scanning { color: var(--accent2); }
+  .fp-status.success { color: var(--accent); font-weight: 700; }
+  .fp-status.error { color: var(--danger); }
+
+  /* BOTONES */
+  .btn {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: all 0.2s;
+  }
+  .btn-entrada {
+    background: linear-gradient(135deg, #00e5a0, #00b37a);
+    color: #0d1117;
+    margin-bottom: 10px;
+  }
+  .btn-salida {
+    background: linear-gradient(135deg, #0099ff, #0066cc);
+    color: #fff;
+    margin-bottom: 10px;
+  }
+  .btn:hover { transform: translateY(-2px); opacity: 0.92; }
+  .btn:active { transform: translateY(0); }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+  /* TABLA DE REGISTROS */
+  .table-container {
+    grid-column: 1 / -1;
+    overflow-x: auto;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+  }
+  thead th {
+    font-family: 'Rajdhani', sans-serif;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-size: 0.8rem;
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  tbody tr {
+    border-bottom: 1px solid rgba(48,54,61,0.5);
+    transition: background 0.15s;
+  }
+  tbody tr:hover { background: rgba(255,255,255,0.03); }
+  tbody td { padding: 12px 16px; }
+
+  .badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  .badge-entrada { background: rgba(0,229,160,0.15); color: var(--accent); }
+  .badge-salida { background: rgba(0,153,255,0.15); color: var(--accent2); }
+
+  /* STATS */
+  .stats { display: flex; gap: 16px; margin-bottom: 20px; }
+  .stat-card {
+    flex: 1;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .stat-label { color: var(--muted); font-size: 0.8rem; margin-top: 2px; }
+
+  /* NOTIFICACIÓN */
+  .notif {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--surface);
+    border: 1px solid var(--accent);
+    border-radius: 12px;
+    padding: 16px 24px;
+    font-weight: 600;
+    color: var(--accent);
+    transform: translateX(120%);
+    transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+    z-index: 1000;
+    max-width: 300px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  }
+  .notif.show { transform: translateX(0); }
+  .notif.error { border-color: var(--danger); color: var(--danger); }
+
+  /* CONFIG */
+  .config-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  .config-section summary {
+    cursor: pointer;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+  .config-inner { margin-top: 16px; display: flex; gap: 10px; flex-wrap: wrap; }
+  .config-inner input {
+    flex: 1;
+    min-width: 200px;
+    padding: 10px 14px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+  }
+  .config-inner input:focus { border-color: var(--accent); }
+  .btn-sm {
+    padding: 10px 20px;
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+    border-radius: 8px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 0.9rem;
+  }
+
+  /* ALMUERZO BOTONES */
+  .btn-almuerzo {
+    background: linear-gradient(135deg, #ff9f43, #e67e22);
+    color: #fff;
+    margin-bottom: 10px;
+  }
+  .btn-retorno {
+    background: linear-gradient(135deg, #a29bfe, #6c5ce7);
+    color: #fff;
+    margin-bottom: 10px;
+  }
+
+  .badge-almuerzo { background: rgba(255,159,67,0.15); color: #ff9f43; }
+  .badge-retorno { background: rgba(162,155,254,0.15); color: #a29bfe; }
+
+  /* ELIMINAR TRABAJADOR */
+  .worker-actions { display: flex; gap: 8px; margin-top: 10px; }
+  .btn-danger {
+    padding: 10px 16px;
+    background: rgba(255,77,109,0.15);
+    color: var(--danger);
+    border: 1px solid rgba(255,77,109,0.3);
+    border-radius: 8px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 0.85rem;
+    flex: 1;
+    transition: all 0.2s;
+  }
+  .btn-danger:hover { background: rgba(255,77,109,0.25); }
+  .btn-danger:disabled { opacity: 0.3; cursor: not-allowed; }
+
+  /* MODAL CONFIRMACIÓN */
+  .modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.7);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 2000;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.2s;
+  }
+  .modal-overlay.show { opacity: 1; pointer-events: all; }
+  .modal {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 30px;
+    max-width: 360px;
+    width: 90%;
+    text-align: center;
+    transform: scale(0.9);
+    transition: transform 0.2s;
+  }
+  .modal-overlay.show .modal { transform: scale(1); }
+  .modal h3 { font-family: 'Rajdhani', sans-serif; font-size: 1.3rem; margin-bottom: 10px; color: var(--danger); }
+  .modal p { color: var(--muted); font-size: 0.9rem; margin-bottom: 24px; }
+  .modal-btns { display: flex; gap: 12px; }
+  .modal-btns button { flex: 1; padding: 12px; border-radius: 10px; border: none; font-family: 'Nunito', sans-serif; font-weight: 700; cursor: pointer; font-size: 0.95rem; }
+  .modal-confirm { background: var(--danger); color: #fff; }
+  .modal-cancel { background: var(--surface2); color: var(--text); }
+
+  /* SELECTED WORKER */
+  .selected-worker {
+    background: var(--surface2);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 52px;
+  }
+  .worker-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: var(--bg);
+    font-size: 0.9rem;
+    flex-shrink: 0;
+  }
+  .worker-name { font-weight: 700; font-size: 1rem; }
+  .worker-id { color: var(--muted); font-size: 0.8rem; }
+
+  .empty-state { text-align: center; padding: 40px; color: var(--muted); font-size: 0.9rem; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <!-- HEADER -->
+  <div class="header">
+    <h1>Control de Asistencia</h1>
+    <p>Sistema de registro por huella dactilar</p>
+    <div class="clock" id="clock">00:00:00</div>
+    <div class="date-display" id="dateDisplay"></div>
+  </div>
+
+  <!-- CONFIGURACIÓN GOOGLE SHEETS -->
+  <details class="config-section" id="configSection">
+    <summary>⚙️ Configuración — Conexión a Google Sheets</summary>
+    <div style="margin-top:14px;">
+      <p style="color:var(--text);font-size:0.95rem;margin-bottom:12px;">Para conectar con tu Excel de Google Drive sigue estos <strong>3 pasos</strong>:</p>
+      <ol style="color:var(--muted);font-size:0.88rem;line-height:1.9;padding-left:18px;margin-bottom:16px;">
+        <li>Abre tu archivo en <strong>Google Drive</strong> (o crea uno nuevo en Google Sheets).</li>
+        <li>Ve al menú: <strong>Extensiones → Apps Script</strong>.</li>
+        <li>Borra lo que haya, pega el código de abajo, guarda y publica como <em>aplicación web</em> con acceso a <em>Cualquier persona</em>.</li>
+      </ol>
+      <pre style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:14px;font-size:0.78rem;color:#79c0ff;overflow-x:auto;margin-bottom:14px;line-height:1.6;">function doPost(e) {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  var data = JSON.parse(e.postData.contents);
+  sheet.appendRow([data.fecha, data.hora, data.nombre, data.id, data.tipo]);
+  return ContentService.createTextOutput('OK');
+}
+function doGet(e) { return ContentService.createTextOutput('Activo'); }</pre>
+      <p style="color:var(--muted);font-size:0.85rem;margin-bottom:14px;">4. Copia la URL que genera y pégala aquí:</p>
+      <div class="config-inner">
+        <input type="text" id="scriptUrl" placeholder="https://script.google.com/macros/s/.../exec" />
+        <button class="btn-sm" onclick="guardarConfig()">💾 Guardar URL</button>
+      </div>
+      <p id="urlStatus" style="color:var(--accent);font-size:0.82rem;margin-top:8px;display:none;">✅ URL configurada correctamente</p>
+    </div>
+  </details>
+
+  <!-- ESTADÍSTICAS -->
+  <div class="stats">
+    <div class="stat-card">
+      <div class="stat-num" id="statEntradas">0</div>
+      <div class="stat-label">Entradas hoy</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="statSalidas">0</div>
+      <div class="stat-label">Salidas hoy</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="statTotal">0</div>
+      <div class="stat-label">Total trabajadores</div>
+    </div>
+  </div>
+
+  <!-- GRID PRINCIPAL -->
+  <div class="grid">
+
+    <!-- PANEL IZQUIERDO: Selección de trabajador -->
+    <div class="card">
+      <div class="card-title">👤 Seleccionar Trabajador</div>
+
+      <input type="text" class="search-box" id="searchBox" placeholder="🔍 Buscar trabajador..." oninput="filtrarTrabajadores()">
+
+      <select class="worker-select" id="workerSelect" size="6" onchange="seleccionarTrabajador()">
+        <!-- Poblado dinámicamente -->
+      </select>
+
+      <div class="worker-actions">
+        <button class="btn" style="background:var(--surface2);color:var(--text);flex:2;" onclick="mostrarAgregarTrabajador()">+ Agregar Trabajador</button>
+        <button class="btn-danger" id="btnEliminar" onclick="confirmarEliminar()" disabled>🗑 Eliminar</button>
+      </div>
+      <div id="addWorkerForm" style="display:none;margin-top:10px;">
+          <input type="text" class="search-box" id="newWorkerName" placeholder="Nombre completo" style="margin-bottom:8px;">
+          <input type="text" class="search-box" id="newWorkerId" placeholder="ID / Número de empleado">
+          <button class="btn btn-entrada" onclick="agregarTrabajador()">Guardar Trabajador</button>
+        </div>
+    </div>
+
+    <!-- PANEL DERECHO: Huella y acciones -->
+    <div class="card">
+      <div class="card-title">👆 Registro de Huella</div>
+
+      <div class="selected-worker" id="selectedWorkerDisplay">
+        <div style="color:var(--muted);font-size:0.9rem;">Ningún trabajador seleccionado</div>
+      </div>
+
+      <div class="fingerprint-zone">
+        <div class="fp-circle" id="fpCircle" onclick="simularHuella()">
+          <span class="fp-icon">👆</span>
+        </div>
+        <div class="fp-status" id="fpStatus">Selecciona un trabajador y toca el ícono de huella</div>
+      </div>
+
+      <div style="margin-top:20px;">
+        <button class="btn btn-entrada" id="btnEntrada" onclick="registrar('ENTRADA')" disabled>✅ Registrar ENTRADA</button>
+        <button class="btn btn-almuerzo" id="btnAlmuerzo" onclick="registrar('SALIDA A ALMORZAR')" disabled>🍽️ Salida a Almorzar</button>
+        <button class="btn btn-retorno" id="btnRetorno" onclick="registrar('RETORNO ALMUERZO')" disabled>🔙 Retorno de Almuerzo</button>
+        <button class="btn btn-salida" id="btnSalida" onclick="registrar('SALIDA')" disabled>🚪 Registrar SALIDA</button>
+      </div>
+    </div>
+
+    <!-- TABLA DE REGISTROS -->
+    <div class="card table-container">
+      <div class="card-title" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+        <span>📋 Registros</span>
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+          <input type="date" id="filtroFecha" onchange="actualizarTabla()"
+            style="padding:7px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'Nunito',sans-serif;font-size:0.85rem;outline:none;">
+          <button class="btn-sm" onclick="exportarCSV()" style="background:var(--surface2);color:var(--accent);border:1px solid var(--accent);">📄 CSV</button>
+          <button class="btn-sm" onclick="exportarExcel()">📊 Excel</button>
+          <button class="btn-sm" onclick="abrirEnGoogleSheets()" style="background:#1a73e8;color:#fff;">☁️ Google Sheets</button>
+        </div>
+      </div>
+
+      <!-- Info Google Sheets en línea -->
+      <div id="gsInfo" style="display:none;background:rgba(0,229,160,0.07);border:1px solid rgba(0,229,160,0.2);border-radius:10px;padding:12px 16px;margin-bottom:14px;font-size:0.85rem;color:var(--muted);">
+        📡 <strong style="color:var(--accent);">Sincronización activa</strong> — Los registros se envían automáticamente a tu Google Sheets al momento de registrarse.
+      </div>
+
+      <div style="display:flex;gap:10px;margin-bottom:12px;font-size:0.8rem;color:var(--muted);flex-wrap:wrap;" id="resumenFiltro"></div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Hora</th>
+            <th>Nombre</th>
+            <th>ID</th>
+            <th>Tipo</th>
+          </tr>
+        </thead>
+        <tbody id="registrosBody">
+          <tr><td colspan="4" class="empty-state">No hay registros</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div><!-- /grid -->
+</div><!-- /container -->
+
+
+<!-- BANNER INSTALACIÓN PWA -->
+<div id="installBanner" style="display:none;position:fixed;bottom:0;left:0;right:0;background:linear-gradient(135deg,#161b22,#1c2333);border-top:1px solid #00e5a0;padding:16px 24px;z-index:3000;align-items:center;justify-content:space-between;gap:16px;box-shadow:0 -8px 32px rgba(0,0,0,0.5);">
+  <div>
+    <div style="font-family:'Rajdhani',sans-serif;font-weight:700;font-size:1.1rem;color:#00e5a0;letter-spacing:2px;">📲 INSTALAR APP</div>
+    <div style="color:#7d8590;font-size:0.85rem;margin-top:2px;">Agrega esta app a la pantalla de inicio de la tablet</div>
+  </div>
+  <div style="display:flex;gap:10px;flex-shrink:0;">
+    <button onclick="document.getElementById('installBanner').style.display='none'" style="padding:10px 18px;background:transparent;border:1px solid #30363d;border-radius:8px;color:#7d8590;font-family:'Nunito',sans-serif;font-weight:700;cursor:pointer;">Ahora no</button>
+    <button onclick="instalarApp()" style="padding:10px 20px;background:linear-gradient(135deg,#00e5a0,#00b37a);border:none;border-radius:8px;color:#0d1117;font-family:'Nunito',sans-serif;font-weight:700;cursor:pointer;font-size:1rem;">✅ Instalar</button>
+  </div>
+</div>
+
+<!-- MODAL ELIMINAR -->
+<div class="modal-overlay" id="modalEliminar">
+  <div class="modal">
+    <h3>⚠️ Eliminar Trabajador</h3>
+    <p id="modalMsg">¿Seguro que deseas eliminar a este trabajador? Esta acción no se puede deshacer.</p>
+    <div class="modal-btns">
+      <button class="modal-cancel" onclick="cerrarModal()">Cancelar</button>
+      <button class="modal-confirm" onclick="eliminarTrabajador()">Eliminar</button>
+    </div>
+  </div>
+</div>
+<div class="notif" id="notif"></div>
+
+<script>
+
+// ============================
+// PWA - SERVICE WORKER
+// ============================
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js')
+      .then(reg => console.log('SW registrado:', reg.scope))
+      .catch(err => console.log('SW error:', err));
+  });
+}
+
+// Banner de instalación
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  deferredPrompt = e;
+  document.getElementById('installBanner').style.display = 'flex';
+});
+
+function instalarApp() {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  deferredPrompt.userChoice.then(() => {
+    deferredPrompt = null;
+    document.getElementById('installBanner').style.display = 'none';
+  });
+}
+
+window.addEventListener('appinstalled', () => {
+  document.getElementById('installBanner').style.display = 'none';
+  mostrarNotif('✅ App instalada correctamente');
+});
+
+// ============================
+// DATOS
+// ============================
+let trabajadores = JSON.parse(localStorage.getItem('trabajadores') || '[]');
+let registros = JSON.parse(localStorage.getItem('registros') || '[]');
+let trabajadorSeleccionado = null;
+let huellaVerificada = false;
+let googleScriptUrl = localStorage.getItem('googleScriptUrl') || '';
+
+// Trabajadores de ejemplo si no hay ninguno
+if (trabajadores.length === 0) {
+  trabajadores = [
+    { id: 'EMP-001', nombre: 'Ana García López' },
+    { id: 'EMP-002', nombre: 'Carlos Mendoza Ruiz' },
+    { id: 'EMP-003', nombre: 'María Fernández Torres' },
+    { id: 'EMP-004', nombre: 'Luis Hernández Vega' },
+    { id: 'EMP-005', nombre: 'Elena Romero Castillo' },
+  ];
+  localStorage.setItem('trabajadores', JSON.stringify(trabajadores));
+}
+
+if (googleScriptUrl) {
+  document.getElementById('scriptUrl').value = googleScriptUrl;
+  document.getElementById('urlStatus').style.display = 'block';
+}
+
+// ============================
+// RELOJ
+// ============================
+function actualizarReloj() {
+  const ahora = new Date();
+  document.getElementById('clock').textContent = ahora.toLocaleTimeString('es-ES');
+  const opciones = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+  document.getElementById('dateDisplay').textContent = ahora.toLocaleDateString('es-ES', opciones);
+}
+setInterval(actualizarReloj, 1000);
+actualizarReloj();
+
+// ============================
+// TRABAJADORES
+// ============================
+function poblarLista(lista) {
+  const sel = document.getElementById('workerSelect');
+  sel.innerHTML = '';
+  lista.forEach(t => {
+    const opt = document.createElement('option');
+    opt.value = t.id;
+    opt.textContent = `${t.nombre} (${t.id})`;
+    sel.appendChild(opt);
+  });
+}
+
+function filtrarTrabajadores() {
+  const q = document.getElementById('searchBox').value.toLowerCase();
+  const filtrados = trabajadores.filter(t =>
+    t.nombre.toLowerCase().includes(q) || t.id.toLowerCase().includes(q)
+  );
+  poblarLista(filtrados);
+}
+
+function seleccionarTrabajador() {
+  const id = document.getElementById('workerSelect').value;
+  trabajadorSeleccionado = trabajadores.find(t => t.id === id);
+  huellaVerificada = false;
+
+  const display = document.getElementById('selectedWorkerDisplay');
+  if (trabajadorSeleccionado) {
+    const iniciales = trabajadorSeleccionado.nombre.split(' ').map(n=>n[0]).slice(0,2).join('');
+    display.innerHTML = `
+      <div class="worker-avatar">${iniciales}</div>
+      <div>
+        <div class="worker-name">${trabajadorSeleccionado.nombre}</div>
+        <div class="worker-id">${trabajadorSeleccionado.id}</div>
+      </div>`;
+  } else {
+    display.innerHTML = '<div style="color:var(--muted);font-size:0.9rem;">Ningún trabajador seleccionado</div>';
+  }
+
+  resetFP();
+  actualizarBotones();
+}
+
+function mostrarAgregarTrabajador() {
+  const f = document.getElementById('addWorkerForm');
+  f.style.display = f.style.display === 'none' ? 'block' : 'none';
+}
+
+function agregarTrabajador() {
+  const nombre = document.getElementById('newWorkerName').value.trim();
+  const id = document.getElementById('newWorkerId').value.trim();
+  if (!nombre || !id) { mostrarNotif('Completa nombre e ID', true); return; }
+  if (trabajadores.find(t => t.id === id)) { mostrarNotif('El ID ya existe', true); return; }
+  trabajadores.push({ id, nombre });
+  localStorage.setItem('trabajadores', JSON.stringify(trabajadores));
+  poblarLista(trabajadores);
+  document.getElementById('newWorkerName').value = '';
+  document.getElementById('newWorkerId').value = '';
+  document.getElementById('addWorkerForm').style.display = 'none';
+  actualizarStats();
+  mostrarNotif(`✅ ${nombre} agregado`);
+}
+
+// ============================
+// HUELLA (SIMULACIÓN)
+// ============================
+function simularHuella() {
+  if (!trabajadorSeleccionado) {
+    mostrarNotif('Primero selecciona un trabajador', true);
+    return;
+  }
+  if (huellaVerificada) return;
+
+  const circle = document.getElementById('fpCircle');
+  const status = document.getElementById('fpStatus');
+
+  circle.className = 'fp-circle scanning';
+  status.textContent = 'Leyendo huella... mantén el dedo';
+  status.className = 'fp-status scanning';
+
+  setTimeout(() => {
+    // Simulación: siempre éxito (en hardware real conectarías el lector aquí)
+    huellaVerificada = true;
+    circle.className = 'fp-circle success';
+    status.textContent = `✅ Huella verificada — ${trabajadorSeleccionado.nombre}`;
+    status.className = 'fp-status success';
+    actualizarBotones();
+    // Vibrar si disponible (tablet/móvil)
+    if (navigator.vibrate) navigator.vibrate([50, 30, 100]);
+  }, 2200);
+}
+
+function resetFP() {
+  const circle = document.getElementById('fpCircle');
+  const status = document.getElementById('fpStatus');
+  circle.className = 'fp-circle';
+  status.textContent = 'Selecciona un trabajador y toca el ícono de huella';
+  status.className = 'fp-status';
+  huellaVerificada = false;
+}
+
+function actualizarBotones() {
+  const ok = trabajadorSeleccionado && huellaVerificada;
+  document.getElementById('btnEntrada').disabled = !ok;
+  document.getElementById('btnSalida').disabled = !ok;
+  document.getElementById('btnAlmuerzo').disabled = !ok;
+  document.getElementById('btnRetorno').disabled = !ok;
+  document.getElementById('btnEliminar').disabled = !trabajadorSeleccionado;
+}
+
+function confirmarEliminar() {
+  if (!trabajadorSeleccionado) return;
+  document.getElementById('modalMsg').textContent =
+    `¿Seguro que deseas eliminar a "${trabajadorSeleccionado.nombre}" (${trabajadorSeleccionado.id})? Esta acción no se puede deshacer.`;
+  document.getElementById('modalEliminar').classList.add('show');
+}
+
+function cerrarModal() {
+  document.getElementById('modalEliminar').classList.remove('show');
+}
+
+function eliminarTrabajador() {
+  if (!trabajadorSeleccionado) return;
+  trabajadores = trabajadores.filter(t => t.id !== trabajadorSeleccionado.id);
+  localStorage.setItem('trabajadores', JSON.stringify(trabajadores));
+  mostrarNotif(`🗑 ${trabajadorSeleccionado.nombre} eliminado`);
+  trabajadorSeleccionado = null;
+  huellaVerificada = false;
+  document.getElementById('selectedWorkerDisplay').innerHTML =
+    '<div style="color:var(--muted);font-size:0.9rem;">Ningún trabajador seleccionado</div>';
+  resetFP();
+  actualizarBotones();
+  poblarLista(trabajadores);
+  actualizarStats();
+  cerrarModal();
+}
+
+// Badge color por tipo
+function badgeClass(tipo) {
+  const mapa = {
+    'ENTRADA': 'badge-entrada',
+    'SALIDA': 'badge-salida',
+    'SALIDA A ALMORZAR': 'badge-almuerzo',
+    'RETORNO ALMUERZO': 'badge-retorno'
+  };
+  return mapa[tipo] || 'badge-salida';
+}
+
+
+function registrar(tipo) {
+  if (!trabajadorSeleccionado || !huellaVerificada) return;
+
+  const ahora = new Date();
+  const registro = {
+    fecha: ahora.toLocaleDateString('es-ES'),
+    hora: ahora.toLocaleTimeString('es-ES'),
+    nombre: trabajadorSeleccionado.nombre,
+    id: trabajadorSeleccionado.id,
+    tipo
+  };
+
+  registros.push(registro);
+  localStorage.setItem('registros', JSON.stringify(registros));
+
+  mostrarNotif(`${tipo === 'ENTRADA' ? '✅ Entrada' : '🚪 Salida'} registrada — ${trabajadorSeleccionado.nombre}`);
+
+  actualizarTabla();
+  actualizarStats();
+  enviarAGoogleSheets(registro);
+
+  // Reset
+  huellaVerificada = false;
+  resetFP();
+  actualizarBotones();
+}
+
+// ============================
+// TABLA
+// ============================
+function getFechaFiltro() {
+  const input = document.getElementById('filtroFecha');
+  if (input && input.value) {
+    // convertir yyyy-mm-dd a dd/mm/yyyy
+    const [y,m,d] = input.value.split('-');
+    return `${d}/${m}/${y}`;
+  }
+  return new Date().toLocaleDateString('es-ES');
+}
+
+function actualizarTabla() {
+  const fecha = getFechaFiltro();
+  const filtrados = registros.filter(r => r.fecha === fecha).reverse();
+  const tbody = document.getElementById('registrosBody');
+  const resumen = document.getElementById('resumenFiltro');
+
+  // Resumen
+  const entradas = filtrados.filter(r => r.tipo === 'ENTRADA').length;
+  const salidas  = filtrados.filter(r => r.tipo === 'SALIDA').length;
+  const almuerzo = filtrados.filter(r => r.tipo === 'SALIDA A ALMORZAR').length;
+  resumen.innerHTML = filtrados.length > 0 ? `
+    <span style="color:var(--accent)">✅ ${entradas} entradas</span>
+    <span>🍽️ ${almuerzo} almuerzos</span>
+    <span style="color:var(--accent2)">🚪 ${salidas} salidas</span>
+    <span style="margin-left:auto;color:var(--muted)">📅 ${fecha}</span>
+  ` : '';
+
+  if (filtrados.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="4" class="empty-state">No hay registros para ${fecha}</td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = filtrados.map(r => `
+    <tr>
+      <td><strong>${r.hora}</strong></td>
+      <td>${r.nombre}</td>
+      <td style="color:var(--muted)">${r.id}</td>
+      <td><span class="badge ${badgeClass(r.tipo)}">${r.tipo}</span></td>
+    </tr>
+  `).join('');
+}
+
+// ============================
+// ESTADÍSTICAS
+// ============================
+function actualizarStats() {
+  const hoy = new Date().toLocaleDateString('es-ES');
+  const hoyReg = registros.filter(r => r.fecha === hoy);
+  document.getElementById('statEntradas').textContent = hoyReg.filter(r => r.tipo === 'ENTRADA').length;
+  document.getElementById('statSalidas').textContent = hoyReg.filter(r => r.tipo === 'SALIDA').length;
+  document.getElementById('statTotal').textContent = trabajadores.length;
+}
+
+// ============================
+// GOOGLE SHEETS
+// ============================
+function guardarConfig() {
+  const url = document.getElementById('scriptUrl').value.trim();
+  if (!url) { mostrarNotif('Pega la URL primero', true); return; }
+  googleScriptUrl = url;
+  localStorage.setItem('googleScriptUrl', url);
+  document.getElementById('urlStatus').style.display = 'block';
+  document.getElementById('gsInfo').style.display = 'block';
+  mostrarNotif('✅ URL guardada correctamente');
+}
+
+async function enviarAGoogleSheets(registro) {
+  if (!googleScriptUrl) return;
+  try {
+    await fetch(googleScriptUrl, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(registro)
+    });
+    mostrarNotif('☁️ Guardado en Google Sheets');
+  } catch (e) {
+    mostrarNotif('⚠️ Error al enviar a Google Sheets', true);
+  }
+}
+
+function abrirEnGoogleSheets() {
+  if (!googleScriptUrl) {
+    mostrarNotif('Primero configura la URL de Google Sheets ⚙️', true);
+    document.getElementById('configSection').open = true;
+    return;
+  }
+  // Extraer el ID del spreadsheet desde la URL del script si es posible
+  // Abrir Google Sheets directamente
+  window.open('https://docs.google.com/spreadsheets/', '_blank');
+  mostrarNotif('☁️ Abriendo Google Sheets...');
+}
+
+// ============================
+// EXPORTAR CSV
+// ============================
+function getDatosExportar() {
+  const fecha = getFechaFiltro();
+  return registros.filter(r => r.fecha === fecha);
+}
+
+function exportarCSV() {
+  const datos = getDatosExportar();
+  if (datos.length === 0) { mostrarNotif('No hay registros para exportar', true); return; }
+  const fecha = getFechaFiltro();
+
+  const header = 'Fecha,Hora,Nombre,ID Empleado,Tipo\n';
+  const rows = datos.map(r => `${r.fecha},${r.hora},"${r.nombre}",${r.id},${r.tipo}`).join('\n');
+  const csv = '\uFEFF' + header + rows;
+
+  descargarArchivo(csv, `asistencia_${fecha.replace(/\//g,'_')}.csv`, 'text/csv;charset=utf-8');
+  mostrarNotif('📄 CSV descargado — ábrelo en Excel o Google Sheets');
+}
+
+// ============================
+// EXPORTAR EXCEL (.xlsx)
+// ============================
+function exportarExcel() {
+  const datos = getDatosExportar();
+  if (datos.length === 0) { mostrarNotif('No hay registros para exportar', true); return; }
+  const fecha = getFechaFiltro();
+
+  // Construir XML de Excel (SpreadsheetML - compatible con Excel y Google Sheets)
+  const filas = datos.map(r => `
+    <Row>
+      <Cell><Data ss:Type="String">${r.fecha}</Data></Cell>
+      <Cell><Data ss:Type="String">${r.hora}</Data></Cell>
+      <Cell><Data ss:Type="String">${r.nombre}</Data></Cell>
+      <Cell><Data ss:Type="String">${r.id}</Data></Cell>
+      <Cell><Data ss:Type="String">${r.tipo}</Data></Cell>
+    </Row>`).join('');
+
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<?mso-application progid="Excel.Sheet"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">
+  <Styles>
+    <Style ss:ID="header">
+      <Font ss:Bold="1" ss:Color="#FFFFFF"/>
+      <Interior ss:Color="#0D4B35" ss:Pattern="Solid"/>
+    </Style>
+  </Styles>
+  <Worksheet ss:Name="Asistencia ${fecha.replace(/\//g,'-')}">
+    <Table>
+      <Row>
+        <Cell ss:StyleID="header"><Data ss:Type="String">FECHA</Data></Cell>
+        <Cell ss:StyleID="header"><Data ss:Type="String">HORA</Data></Cell>
+        <Cell ss:StyleID="header"><Data ss:Type="String">NOMBRE</Data></Cell>
+        <Cell ss:StyleID="header"><Data ss:Type="String">ID EMPLEADO</Data></Cell>
+        <Cell ss:StyleID="header"><Data ss:Type="String">TIPO</Data></Cell>
+      </Row>
+      ${filas}
+    </Table>
+  </Worksheet>
+</Workbook>`;
+
+  descargarArchivo(xml, `asistencia_${fecha.replace(/\//g,'_')}.xls`, 'application/vnd.ms-excel');
+  mostrarNotif('📊 Excel descargado — ábrete directamente en Excel o súbelo a Google Drive');
+}
+
+function descargarArchivo(contenido, nombre, tipo) {
+  const blob = new Blob([contenido], { type: tipo });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = nombre;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+// ============================
+// NOTIFICACIÓN
+// ============================
+function mostrarNotif(msg, error = false) {
+  const notif = document.getElementById('notif');
+  notif.textContent = msg;
+  notif.className = 'notif' + (error ? ' error' : '');
+  void notif.offsetWidth;
+  notif.classList.add('show');
+  setTimeout(() => notif.classList.remove('show'), 3500);
+}
+
+// ============================
+// INIT
+// ============================
+// Poner fecha de hoy en el filtro
+const hoyInput = new Date().toISOString().split('T')[0];
+document.getElementById('filtroFecha').value = hoyInput;
+
+poblarLista(trabajadores);
+actualizarTabla();
+actualizarStats();
+
+if (googleScriptUrl) {
+  document.getElementById('gsInfo').style.display = 'block';
+}
+</script>
+</body>
+</html>
