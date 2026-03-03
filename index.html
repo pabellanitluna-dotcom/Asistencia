@@ -544,8 +544,13 @@ function doGet(e) { return ContentService.createTextOutput('Activo'); }</pre>
       </div>
 
       <!-- Info Google Sheets en línea -->
-      <div id="gsInfo" style="display:none;background:rgba(0,229,160,0.07);border:1px solid rgba(0,229,160,0.2);border-radius:10px;padding:12px 16px;margin-bottom:14px;font-size:0.85rem;color:var(--muted);">
-        📡 <strong style="color:var(--accent);">Sincronización activa</strong> — Los registros se envían automáticamente a tu Google Sheets al momento de registrarse.
+      <div id="gsInfo" style="display:none;background:rgba(0,229,160,0.07);border:1px solid rgba(0,229,160,0.2);border-radius:10px;padding:12px 16px;margin-bottom:10px;font-size:0.85rem;color:var(--muted);">
+        📡 <strong style="color:var(--accent);">Sincronización activa</strong> — Los registros se envían automáticamente a tu Google Sheets.
+      </div>
+      <!-- Badge pendientes -->
+      <div id="badgePendientes" style="display:none;background:rgba(255,159,67,0.15);border:1px solid rgba(255,159,67,0.4);border-radius:10px;padding:12px 16px;margin-bottom:10px;font-size:0.85rem;color:#ff9f43;display:flex;align-items:center;justify-content:space-between;gap:10px;">
+        <span>⏳ <strong id="textoPendientes"></strong> sin enviar a Google Sheets</span>
+        <button onclick="sincronizarPendientes()" style="padding:6px 14px;background:#ff9f43;color:#0d1117;border:none;border-radius:6px;font-family:'Nunito',sans-serif;font-weight:700;cursor:pointer;font-size:0.8rem;flex-shrink:0;">🔄 Sincronizar</button>
       </div>
 
       <div style="display:flex;gap:10px;margin-bottom:12px;font-size:0.8rem;color:var(--muted);flex-wrap:wrap;" id="resumenFiltro"></div>
@@ -638,17 +643,7 @@ let trabajadorSeleccionado = null;
 let huellaVerificada = false;
 let googleScriptUrl = localStorage.getItem('googleScriptUrl') || '';
 
-// Trabajadores de ejemplo si no hay ninguno
-if (trabajadores.length === 0) {
-  trabajadores = [
-    { id: 'EMP-001', nombre: 'Ana García López' },
-    { id: 'EMP-002', nombre: 'Carlos Mendoza Ruiz' },
-    { id: 'EMP-003', nombre: 'María Fernández Torres' },
-    { id: 'EMP-004', nombre: 'Luis Hernández Vega' },
-    { id: 'EMP-005', nombre: 'Elena Romero Castillo' },
-  ];
-  localStorage.setItem('trabajadores', JSON.stringify(trabajadores));
-}
+// Sin trabajadores de ejemplo — el usuario agrega los suyos
 
 if (googleScriptUrl) {
   document.getElementById('scriptUrl').value = googleScriptUrl;
@@ -821,9 +816,16 @@ function registrar(tipo) {
   if (!trabajadorSeleccionado || !huellaVerificada) return;
 
   const ahora = new Date();
+  // Formato dd/mm/yyyy fijo y consistente
+  const dia  = String(ahora.getDate()).padStart(2,'0');
+  const mes  = String(ahora.getMonth()+1).padStart(2,'0');
+  const anio = ahora.getFullYear();
+  const fechaStr = dia+'/'+mes+'/'+anio;
+  const horaStr  = ahora.toLocaleTimeString('es-ES');
+
   const registro = {
-    fecha: ahora.toLocaleDateString('es-ES'),
-    hora: ahora.toLocaleTimeString('es-ES'),
+    fecha: fechaStr,
+    hora: horaStr,
     nombre: trabajadorSeleccionado.nombre,
     id: trabajadorSeleccionado.id,
     tipo
@@ -832,7 +834,8 @@ function registrar(tipo) {
   registros.push(registro);
   localStorage.setItem('registros', JSON.stringify(registros));
 
-  mostrarNotif(`${tipo === 'ENTRADA' ? '✅ Entrada' : '🚪 Salida'} registrada — ${trabajadorSeleccionado.nombre}`);
+  const iconos = {'ENTRADA':'✅','SALIDA':'🚪','SALIDA A ALMORZAR':'🍽️','RETORNO ALMUERZO':'🔙'};
+  mostrarNotif((iconos[tipo]||'📝')+' '+tipo+' registrada — '+trabajadorSeleccionado.nombre);
 
   actualizarTabla();
   actualizarStats();
@@ -850,11 +853,14 @@ function registrar(tipo) {
 function getFechaFiltro() {
   const input = document.getElementById('filtroFecha');
   if (input && input.value) {
-    // convertir yyyy-mm-dd a dd/mm/yyyy
     const [y,m,d] = input.value.split('-');
-    return `${d}/${m}/${y}`;
+    return d+'/'+m+'/'+y;
   }
-  return new Date().toLocaleDateString('es-ES');
+  const ahora = new Date();
+  const dia  = String(ahora.getDate()).padStart(2,'0');
+  const mes  = String(ahora.getMonth()+1).padStart(2,'0');
+  const anio = ahora.getFullYear();
+  return dia+'/'+mes+'/'+anio;
 }
 
 function actualizarTabla() {
@@ -901,8 +907,10 @@ function actualizarStats() {
 }
 
 // ============================
-// GOOGLE SHEETS
+// GOOGLE SHEETS + SINCRONIZACIÓN OFFLINE
 // ============================
+let pendientes = JSON.parse(localStorage.getItem('pendientes') || '[]');
+
 function guardarConfig() {
   const url = document.getElementById('scriptUrl').value.trim();
   if (!url) { mostrarNotif('Pega la URL primero', true); return; }
@@ -911,10 +919,20 @@ function guardarConfig() {
   document.getElementById('urlStatus').style.display = 'block';
   document.getElementById('gsInfo').style.display = 'block';
   mostrarNotif('✅ URL guardada correctamente');
+  // Intentar sincronizar pendientes al guardar URL
+  sincronizarPendientes();
 }
 
 async function enviarAGoogleSheets(registro) {
   if (!googleScriptUrl) return;
+  if (!navigator.onLine) {
+    // Sin internet — guardar en cola de pendientes
+    pendientes.push(registro);
+    localStorage.setItem('pendientes', JSON.stringify(pendientes));
+    actualizarBadgePendientes();
+    mostrarNotif('📵 Sin internet — guardado para sincronizar luego', true);
+    return;
+  }
   try {
     await fetch(googleScriptUrl, {
       method: 'POST',
@@ -924,9 +942,67 @@ async function enviarAGoogleSheets(registro) {
     });
     mostrarNotif('☁️ Guardado en Google Sheets');
   } catch (e) {
-    mostrarNotif('⚠️ Error al enviar a Google Sheets', true);
+    // Error de red — guardar en pendientes
+    pendientes.push(registro);
+    localStorage.setItem('pendientes', JSON.stringify(pendientes));
+    actualizarBadgePendientes();
+    mostrarNotif('⚠️ Sin conexión — se sincronizará cuando haya internet', true);
   }
 }
+
+async function sincronizarPendientes() {
+  if (!googleScriptUrl || pendientes.length === 0) return;
+  if (!navigator.onLine) return;
+
+  mostrarNotif('🔄 Sincronizando ' + pendientes.length + ' registros pendientes...');
+  const copiaPendientes = [...pendientes];
+  let exitosos = 0;
+
+  for (const reg of copiaPendientes) {
+    try {
+      await fetch(googleScriptUrl, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(reg)
+      });
+      exitosos++;
+      // Quitar de pendientes
+      pendientes = pendientes.filter(p =>
+        !(p.fecha === reg.fecha && p.hora === reg.hora && p.id === reg.id && p.tipo === reg.tipo)
+      );
+      localStorage.setItem('pendientes', JSON.stringify(pendientes));
+      actualizarBadgePendientes();
+    } catch(e) {
+      break; // Si falla, detener y dejar el resto para luego
+    }
+  }
+
+  if (exitosos > 0) {
+    mostrarNotif('✅ ' + exitosos + ' registros sincronizados con Google Sheets');
+  }
+}
+
+function actualizarBadgePendientes() {
+  const badge = document.getElementById('badgePendientes');
+  if (!badge) return;
+  if (pendientes.length > 0) {
+    const tp = document.getElementById('textoPendientes'); if(tp) tp.textContent = pendientes.length + ' registro' + (pendientes.length > 1 ? 's' : ''); badge.style.display = 'flex';
+    
+  } else {
+    badge.style.display = 'none';
+  }
+}
+
+// Detectar cuando vuelve el internet y sincronizar automáticamente
+window.addEventListener('online', () => {
+  mostrarNotif('🌐 Internet restaurado — sincronizando...');
+  setTimeout(sincronizarPendientes, 2000);
+});
+
+window.addEventListener('offline', () => {
+  mostrarNotif('📵 Sin internet — los registros se guardan localmente', true);
+});
 
 function abrirEnGoogleSheets() {
   if (!googleScriptUrl) {
@@ -934,8 +1010,6 @@ function abrirEnGoogleSheets() {
     document.getElementById('configSection').open = true;
     return;
   }
-  // Extraer el ID del spreadsheet desde la URL del script si es posible
-  // Abrir Google Sheets directamente
   window.open('https://docs.google.com/spreadsheets/', '_blank');
   mostrarNotif('☁️ Abriendo Google Sheets...');
 }
@@ -1041,10 +1115,14 @@ document.getElementById('filtroFecha').value = hoyInput;
 poblarLista(trabajadores);
 actualizarTabla();
 actualizarStats();
+actualizarBadgePendientes();
 
 if (googleScriptUrl) {
   document.getElementById('gsInfo').style.display = 'block';
+  // Al abrir la app, intentar sincronizar pendientes automáticamente
+  setTimeout(sincronizarPendientes, 3000);
 }
 </script>
 </body>
 </html>
+
